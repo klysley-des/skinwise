@@ -1,0 +1,32 @@
+services:
+  web01:
+    build: .
+    environment:
+      SERVER_ID: web01
+      PORT: "3000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then((res)=>process.exit(res.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+  web02:
+    build: .
+    environment:
+      SERVER_ID: web02
+      PORT: "3000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then((res)=>process.exit(res.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+  lb01:
+    image: haproxy:2.8-alpine
+    ports:
+      - "8091:80"
+    volumes:
+      - ./deploy/haproxy/local.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    depends_on:
+      - web01
+      - web02

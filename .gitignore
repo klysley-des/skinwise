@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# SSH keys and certificates
+*.pem
+*.key
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*.ppk
+
+# Logs and test output
+*.log
+logs/
+coverage/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary deployment files
+*.tar
+*.tar.gz
+skinwise-deploy/
+
+deploy/deploy.ps1
+deploy/remote-web.sh
+deploy/remote-lb.sh
+DEPLOY.txt

@@ -1,0 +1,12 @@
+SkinWise
+
+Use this zip as a new folder. Do not paste it into an old copy.
+
+1. Extract skinwise-working.zip to a new empty folder, for example C:\Users\HP\Desktop\skinwise-new
+   Do not extract it into Music\skinwise, Downloads\skinwise, or Desktop\skinwise-project.
+2. Open PowerShell in the new folder. You should see package.json, server.js, src, and public.
+3. Run: npm install
+4. Run: npm start
+5. Open http://127.0.0.1:3060 and press Ctrl+F5.
+
+Wait until the status line stops saying "Still reading" before you filter by oily skin or press Find Products.

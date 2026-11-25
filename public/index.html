@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SkinWise — Discover. Understand. Glow.</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <p class="announce">Discover. Understand. Glow.</p>
+  <header class="top">
+    <div class="bar">
+      <a class="logo" href="#home"><span class="mark" aria-hidden="true"></span>SkinWise</a>
+      <form id="finder" class="search" role="search">
+        <label class="sr" for="q">Search products</label>
+        <input id="q" type="search" placeholder="Search for products, brands, ingredients" maxlength="60" autocomplete="off">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#discover">Discover</a>
+      <a href="#routine">Routine</a>
+      <a href="#concerns">Skin concern</a>
+      <a href="#ingredients">Ingredients</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy">
+        <p class="kicker">Your skincare journey starts here</p>
+        <h1>Discover what your skin loves.</h1>
+        <p>Explore trusted skincare brands, discover powerful ingredients and find products that match your skin’s needs. Understand what goes into every product before adding it to your routine.</p>
+        <a class="button" href="#discover">Explore Skincare</a>
+      </div>
+      <section class="slider" aria-roledescription="carousel" aria-label="Skincare photographs">
+        <div class="slides">
+          <figure class="slide is-on">
+            <img src="/images/01-cerave-acne.jpg" alt="CeraVe">
+            <figcaption>CeraVe</figcaption>
+          </figure>
+          <figure class="slide">
+            <img src="/images/02-biobalance.jpg" alt="Biobalance" loading="lazy" decoding="async">
+            <figcaption>Biobalance</figcaption>
+          </figure>
+          <figure class="slide">
+            <img src="/images/03-ordinary-fabric.jpg" alt="The Ordinary" loading="lazy" decoding="async">
+            <figcaption>The Ordinary</figcaption>
+          </figure>
+          <figure class="slide">
+            <img src="/images/04-ordinary-acids.jpg" alt="The Ordinary" loading="lazy" decoding="async">
+            <figcaption>The Ordinary</figcaption>
+          </figure>
+          <figure class="slide">
+            <img src="/images/05-skin1004-shelf.jpg" alt="SKIN1004" loading="lazy" decoding="async">
+            <figcaption>SKIN1004</figcaption>
+          </figure>
+          <figure class="slide">
+            <img src="/images/06-skin1004-tray.jpg" alt="SKIN1004" loading="lazy" decoding="async">
+            <figcaption>SKIN1004</figcaption>
+          </figure>
+          <figure class="slide">
+            <img src="/images/07-laroche.jpg" alt="La Roche-Posay" loading="lazy" decoding="async">
+            <figcaption>La Roche-Posay</figcaption>
+          </figure>
+          <figure class="slide">
+            <img src="/images/08-cerave-care.jpg" alt="CeraVe" loading="lazy" decoding="async">
+            <figcaption>CeraVe</figcaption>
+          </figure>
+        </div>
+        <button type="button" class="slide-btn prev" aria-label="Previous photograph">‹</button>
+        <button type="button" class="slide-btn next" aria-label="Next photograph">›</button>
+        <div class="dots"></div>
+      </section>
+    </section>
+
+    <section id="concerns">
+      <div class="section-head">
+        <h2>Find the Right Care for Your Skin</h2>
+        <p>Your skin has its own needs. Whether you’re dealing with breakouts, dark spots, dryness or uneven skin tone, explore products designed to address your concerns.</p>
+      </div>
+      <div id="concern-list" class="chips"></div>
+    </section>
+
+    <section id="discover">
+      <div class="section-head">
+        <h2>Products</h2>
+        <p id="status" class="status" role="status">Loading products…</p>
+        <button id="retry" type="button" hidden>Retry</button>
+      </div>
+      <form id="barcode-lookup" class="barcode">
+        <div class="section-head">
+          <h3>Search by Barcode</h3>
+          <p>Enter the digits printed with a product barcode. SkinWise asks Open Beauty Facts for that product and shows the name, brand, and ingredient list it publishes.</p>
+          <p class="credit">Barcode data is from <a href="https://world.openbeautyfacts.org" target="_blank" rel="noreferrer">Open Beauty Facts</a>, the free cosmetics database maintained by Open Food Facts contributors.</p>
+        </div>
+        <label class="sr" for="barcode">Barcode</label>
+        <input id="barcode" name="barcode" type="text" inputmode="numeric" autocomplete="off" maxlength="24" placeholder="For example 3337875597207" aria-describedby="barcode-status">
+        <button type="submit">Find Product</button>
+        <p id="barcode-status" class="status" role="status" aria-live="polite"></p>
+      </form>
+      <div id="brands" class="chips"></div>
+      <div class="filters">
+        <div id="skins" class="chips"></div>
+        <label class="sort-label">Sort
+          <select id="sort">
+            <option value="az">Name, A to Z</option>
+            <option value="za">Name, Z to A</option>
+            <option value="ingredients">Ingredient list first</option>
+          </select>
+        </label>
+      </div>
+      <div id="list"></div>
+      <article id="detail" class="detail" hidden></article>
+    </section>
+
+    <section id="routine" class="routine">
+      <div class="section-head">
+        <h2>Create Your Perfect Skincare Routine</h2>
+        <p>Healthy-looking skin starts with a routine that works for you. Explore the four essential steps of skincare, from cleansing and treating to moisturising and protecting.</p>
+      </div>
+      <div class="chips" id="routine-times">
+        <button type="button" data-step="morning">Morning routine</button>
+        <button type="button" data-step="evening">Evening routine</button>
+      </div>
+      <p id="routine-note" class="quiet"></p>
+      <div class="routine-grid">
+        <article class="routine-card">
+          <img src="/images/routine-cleanse.jpg" alt="CeraVe cleansers, including the Hydrating Facial Cleanser and Foaming Facial Cleanser">
+          <div class="routine-copy">
+            <h3>Start fresh</h3>
+            <p>Begin with a gentle cleanser to remove dirt, excess oil and impurities while keeping your skin comfortable.</p>
+            <button type="button" data-step="cleanse">Explore Cleansers</button>
+          </div>
+        </article>
+        <article class="routine-card">
+          <img src="/images/routine-treat.jpg" alt="The Ordinary treatment serums, including Niacinamide and Salicylic Acid">
+          <div class="routine-copy">
+            <h3>Target your concerns</h3>
+            <p>Discover serums and targeted treatments with ingredients selected to address specific skin concerns.</p>
+            <button type="button" data-step="treat">Explore Treatments</button>
+          </div>
+        </article>
+        <article class="routine-card">
+          <img src="/images/routine-moisturise.jpg" alt="Biobalance cream moisturisers">
+          <div class="routine-copy">
+            <h3>Nourish your skin</h3>
+            <p>Keep your skin hydrated and support its natural barrier with moisturisers and nourishing skincare products.</p>
+            <button type="button" data-step="moisturise">Explore Moisturisers</button>
+          </div>
+        </article>
+        <article class="routine-card">
+          <img src="/images/routine-sunscreen.jpg" alt="Biobalance SPF 50+ sun fluids">
+          <div class="routine-copy">
+            <h3>Shield your skin</h3>
+            <p>Make sunscreen your final morning step to help protect your skin from harmful UV rays.</p>
+            <button type="button" data-step="sunscreen">Explore Sunscreens</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="ingredients">
+      <div class="section-head">
+        <h2>What’s Inside Matters.</h2>
+        <p>Great skincare starts with knowing what goes onto your skin. Discover the ingredients behind your favourite products, what they do, the concerns they may help address and what to consider before using them.</p>
+      </div>
+      <div id="guide" class="guide"></div>
+      <div id="ingredient-results" class="ingredient-results" hidden></div>
+    </section>
+  </main>
+  <footer>
+    <p>SkinWise does not sell these products and does not invent ingredient lists. Barcode data comes from <a href="https://world.openbeautyfacts.org" target="_blank" rel="noreferrer">Open Beauty Facts</a>. <button id="probe" type="button">Probe four requests</button> <span id="probe-log"></span></p>
+  </footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>
