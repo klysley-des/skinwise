@@ -1,0 +1,128 @@
+﻿SKINWISE – DOCKER DEPLOYMENT GUIDE
+
+1. EXISTING ALU INFRASTRUCTURE
+
+Web01: 35.176.105.214
+Web02: 35.178.109.0
+Lb01:  13.135.247.58
+
+The existing ALU servers and SSH keys were reused.
+
+2. DEPLOYMENT ARCHITECTURE
+
+SkinWise is deployed using Docker on two application servers.
+
+WEB01
+- Server: 7325-web-01
+- Docker image: skinwise:latest
+- Container: skinwise-web01
+- Host port: 3001
+- Container port: 3000
+- SERVER_ID=web01
+
+WEB02
+- Server: 7325-web-02
+- Docker image: skinwise:latest
+- Container: skinwise-web02
+- Host port: 3001
+- Container port: 3000
+- SERVER_ID=web02
+
+LOAD BALANCER
+- Server: 7325-lb-01
+- Service: HAProxy
+- Application frontend: Port 8080
+- Balancing algorithm: Round Robin
+- Backend health check: GET /api/health
+
+3. APPLICATION ACCESS
+
+Public application:
+http://13.135.247.58:8080
+
+Health check:
+http://13.135.247.58:8080/api/health
+
+4. DOCKER VERIFICATION
+
+On Web01:
+
+sudo docker ps
+sudo docker images
+curl http://localhost:3001/api/health
+
+On Web02:
+
+sudo docker ps
+sudo docker images
+curl http://localhost:3001/api/health
+
+Expected health responses:
+
+Web01:
+{"ok":true,"service":"skinwise","server":"web01"}
+
+Web02:
+{"ok":true,"service":"skinwise","server":"web02"}
+
+5. LOAD BALANCER VERIFICATION
+
+On Lb01, run:
+
+for i in {1..6}; do
+  curl -s http://127.0.0.1:8080/api/health
+  echo
+done
+
+Expected result:
+
+Requests should alternate between web01 and web02, demonstrating successful round-robin load balancing.
+
+6. HAProxy CONFIGURATION
+
+The SkinWise frontend listens on port 8080.
+
+The backend contains:
+
+- Web01: 35.176.105.214:3001
+- Web02: 35.178.109.0:3001
+
+The existing HAProxy services on ports 80 and 443 were preserved.
+
+Configuration validation:
+
+sudo haproxy -c -f /etc/haproxy/haproxy.cfg
+
+Restart:
+
+sudo systemctl restart haproxy
+
+7. DOCKER CONTAINER MANAGEMENT
+
+Check containers:
+
+sudo docker ps
+
+View logs:
+
+sudo docker logs skinwise-web01
+
+For Web02:
+
+sudo docker logs skinwise-web02
+
+Restart a container:
+
+sudo docker restart skinwise-web01
+
+8. IMPORTANT DEPLOYMENT NOTES
+
+- Existing ALU servers and SSH keys were reused.
+- Docker was installed on both application servers.
+- The same SkinWise Docker image was built on both servers.
+- Both Docker containers were successfully started and tested.
+- HAProxy was configured to route traffic to Docker containers.
+- Round-robin distribution was verified using six consecutive requests.
+- Existing HAProxy services and HTTPS certificate were preserved.
+- The original Node.js processes were retained temporarily as a fallback.
+- Old deployment scripts should not be executed without reviewing them.
