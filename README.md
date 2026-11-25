@@ -158,7 +158,15 @@ skinwise/
 └── DEPLOY.txt
 ```
 
-## 11. Conclusion
+## 11. Application Demo Video
+
+Watch the SkinWise application demo below:
+
+[Click here to watch the SkinWise Demo Video](https://drive.google.com/file/d/1mXjOfs0Yxy4egQTyaAob5539nktdBCbs/view?usp=sharing)
+
+The video demonstrates the application's main features, API integration, local functionality, and access through the HAProxy load balancer.
+
+## 12. Conclusion
 
 SkinWise demonstrates the integration of an external REST API into a web application and its deployment across multiple servers.
 
